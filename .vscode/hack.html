@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Water Monitoring System</title>
+<link rel="stylesheet" href="hack.css"> <!-- ✅ CSS linked -->
+</head>
+<body>
+
+<h1>💧 Water Monitoring System</h1>
+<p>SDG 6 - Clean Water & Sanitation</p>
+
+<div class="container">
+    <input type="number" id="ph" placeholder="Enter pH Value (6.5 - 8.5)">
+    <input type="number" id="tds" placeholder="Enter TDS Value (≤ 500 ppm)">
+    <input type="number" id="turbidity" placeholder="Enter Turbidity (≤ 5 NTU)">
+    <button onclick="checkWater()">Check Water Safety</button>
+    <p id="result"></p>
+</div>
+
+<script>
+function checkWater() {
+    let ph = Number(document.getElementById("ph").value);
+    let tds = Number(document.getElementById("tds").value);
+    let turbidity = Number(document.getElementById("turbidity").value);
+    let result = document.getElementById("result");
+
+    let safePH = ph >= 6.5 && ph <= 8.5;
+    let safeTDS = tds <= 500;
+    let safeTurbidity = turbidity <= 5;
+
+    if (safePH && safeTDS && safeTurbidity) {
+        result.innerHTML = "✅ WATER IS SAFE ✅<br>pH: " + ph + ", TDS: " + tds + " ppm, Turbidity: " + turbidity + " NTU";
+        result.style.color = "green";
+        alert("💧 The water is safe to drink! Keep hydrated and stay healthy! 🌿");
+    } else {
+        result.innerHTML = "❌ WATER IS UNSAFE ❌<br>pH: " + ph + ", TDS: " + tds + " ppm, Turbidity: " + turbidity + " NTU";
+        result.style.color = "red";
+
+        let unsafeMessage = "⚠️ The water is unsafe to drink! ";
+        if(!safePH) unsafeMessage += "\n- pH is out of safe range (6.5 - 8.5).";
+        if(!safeTDS) unsafeMessage += "\n- TDS exceeds safe limit (≤ 500 ppm).";
+        if(!safeTurbidity) unsafeMessage += "\n- Turbidity exceeds safe limit (≤ 5 NTU).";
+
+        alert(unsafeMessage + "\nPlease avoid drinking this water.");
+    }
+    
+    result.style.opacity = "1";
+}
+</script>
+
+</body>
+</html>
